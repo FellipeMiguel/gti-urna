@@ -115,7 +115,7 @@
         "keydown",
         function (event) {
           if (event.defaultPrevented) {
-            return; // Do nothing if the event was already processed
+            return;
           }
 
           switch (event.key) {
@@ -161,10 +161,9 @@
             case "Add":
               branco();
               break;
-              return; // Quit when this doesn't handle the key event.
+              return;
           }
 
-          // Cancel the default action to avoid it being handled twice
           event.preventDefault();
         },
         true
