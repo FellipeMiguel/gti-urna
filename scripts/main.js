@@ -331,13 +331,12 @@ function cadastrarCandidato() {
 function preenche_lista() {
   console.log("Função preenche_lista chamada.");
   ls_keys = Object.keys(localStorage);
-  listaVoto = []; // Reseta a listaVoto para evitar duplicações
+  listaVoto = [];
 
   for (var i in ls_keys) {
     var item = JSON.parse(localStorage.getItem(ls_keys[i]));
     console.log("Item encontrado no localStorage:", item);
 
-    // Verifique se item.tipos existe e inicialize se necessário
     if (!item.tipos) {
       item.tipos = {
         teacher: 0,
@@ -346,8 +345,7 @@ function preenche_lista() {
         parents: 0,
       };
     }
-
-    // Remover chapas 3, 4 e 5
+    
     if (item.numero !== "03" && item.numero !== "04" && item.numero !== "05") {
       listaVoto.push(item);
     }
