@@ -44,16 +44,6 @@
     <div id="div_caidodatos_e_teclas">
       <div id="candidatos">
         <div class="selected-number">
-          <form>
-            <label for="type-vote">Escolha o tipo de voto:</label>
-            <select id="type-vote" name="type-vote" onchange="verifyVote()">
-              <option value="" selected>Selecione</option>
-              <option value="teacher">Professor</option>
-              <option value="employee">Funcionário</option>
-              <option value="student">Aluno</option>
-              <option value="parents">Pais</option>
-            </select>
-          </form>
           <h2 id="static_number_indicator">Número:</h2>
           <p id="tela_numero"></p>
         </div>
@@ -103,7 +93,9 @@
       <button onclick="end()">FINALIZAR VOTAÇÃO</button>
     </div>
     <footer>
-      <div class="developer">Desenvolvido pela GTI - 2024</div>
+      <div class="developer">
+        Desenvolvido pela GTI - <span id="year"></span>
+      </div>
     </footer>
 
     <script src="scripts/jquery.min.js"></script>
@@ -169,6 +161,12 @@
         },
         true
       );
+
+      let year = document.getElementById("year");
+      let getDate = new Date();
+      let atualYear = getDate.getFullYear();
+
+      year.innerText = atualYear;
     </script>
   </body>
 </html>

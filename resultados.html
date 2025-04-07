@@ -23,7 +23,7 @@
           class="header__img--sme"
           alt="Logo da SME"
         />
-        </div>
+      </div>
       <div class="header__nav">
         <img
           src="./img/logo-fundo-branco-texto.png"
@@ -33,23 +33,15 @@
       </div>
     </header>
     <div id="divPai">
-      <ul>
-        <li>Escolas com chapa única ignorar a coluna V(x) e usar Total Votos</li>
-        <li>Em caso de chapa única qualquer voto na chapa 2 será considerado Nulo</li>
-        <li>Sendo chapa única, esta será proclamada vitoriosa caso obtenha 50% mais 1 (um) dos Total de Votos</li>
-      </ul>
+      <h1>Tabela de resultado da eleição</h1>
       <div id="div_tabela">
         <table border="1" id="tabela">
           <thead>
             <tr>
-              <th>Nome</th> 
-              <th>Número</th> 
-              <th>Pais</th> 
-              <th>Alunos</th> 
-              <th>Professores</th> 
-              <th>Funcionários</th>
-              <th>Total Votos</td>
-              <th>V(x)%</td>
+              <th>Nome</th>
+              <th>Número</th>
+              <th>Total Votos</th>
+              <th>V(x)%</th>
             </tr>
           </thead>
           <tbody id="tabela_corpo"></tbody>
@@ -77,8 +69,18 @@
     </div>
 
     <footer>
-      <div class="developer">Desenvolvido pela GTI - 2024</div>
+      <div class="developer">
+        Desenvolvido pela GTI - <span id="year"></span>
+      </div>
     </footer>
+
+    <script>
+      let year = document.getElementById("year");
+      let getDate = new Date();
+      let atualYear = getDate.getFullYear();
+
+      year.innerText = atualYear;
+    </script>
 
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/html2canvas.js"></script>

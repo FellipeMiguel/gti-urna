@@ -1,13 +1,124 @@
+/**
+ * Plays the confirmation sound effect and processes the vote.
+ * If the vote is invalid, it is marked as "nulo".
+ * Updates the localStorage with the new vote count and redirects to the final page.
+ */
+function confirma() {}
+
+/**
+ * Redirects the user to the initial page.
+ */
+function iniciar() {}
+
+/**
+ * Resets the voting data in localStorage and redirects to the results page if the correct password is entered.
+ * Otherwise, displays an alert for incorrect password.
+ */
+function zeresima() {}
+
+/**
+ * Registers a blank vote ("BR") if no number has been entered.
+ * Updates the display to show the blank vote.
+ */
+function branco() {}
+
+/**
+ * Clears the current vote input and resets the display.
+ */
+function corrige() {}
+
+/**
+ * Handles the input of a number button during voting.
+ * Updates the vote number and plays the button sound effect.
+ * If two digits are entered, it triggers the display update.
+ *
+ * @param {string} clicked_id - The ID of the clicked button.
+ */
+function botao(clicked_id) {}
+
+/**
+ * Toggles the visibility of candidate images based on the given ID.
+ * If the ID is invalid, it defaults to "nulo".
+ *
+ * @param {string} my_id - The ID of the candidate or vote type.
+ */
+function showHide(my_id) {}
+
+/**
+ * Ends the voting process and redirects to the results page if the correct password is entered.
+ * Otherwise, displays an alert for incorrect password.
+ */
+function end() {}
+
+/**
+ * Registers candidates in localStorage with initial vote counts set to 0.
+ * Redirects to the initial page after registration.
+ */
+function cadastrarCandidato() {}
+
+/**
+ * Populates the `listaVoto` array with data from localStorage.
+ * Initializes the vote type counts if not already present.
+ *
+ * @returns {Array} The updated `listaVoto` array.
+ */
+function preenche_lista() {}
+
+/**
+ * Updates the localStorage with the current state of the `listaVoto` array.
+ */
+function atualizarLocalStorage() {}
+
+/**
+ * Generates a PDF document with the election results and downloads it.
+ *
+ * @param {boolean} x - A flag to determine the content of the PDF header.
+ */
+function convertePDF(x) {}
+
+/**
+ * Gets the current date in the format "day of month of year".
+ *
+ * @returns {string} The formatted date string.
+ */
+function getTempo() {}
+
+/**
+ * Gets the current time in the format "HH:mm:ss".
+ *
+ * @returns {string} The formatted time string.
+ */
+function getHora() {}
+
+/**
+ * Adds a leading zero to a number if it is less than 10.
+ *
+ * @param {number} x - The number to format.
+ * @returns {string} The formatted number as a string.
+ */
+function botar_zeros(x) {}
+
+/**
+ * Adjusts the visibility of the start and continue buttons based on the presence of voting data.
+ */
+function blockButton() {}
+
+/**
+ * Returns the fixed value "student" as the selected vote type.
+ *
+ * @returns {string} The selected vote type.
+ */
+function getSelectedValue() {}
 var confirmasfx = new Audio("sons/urna.mp3");
 var teclafx = new Audio("sons/tecla.mp3");
-var numero = "",
+let numero = "",
   count = 0,
   troca_img,
   cont = 0;
 let listaVoto = [];
 var hora, minuto, segundo;
 var iniciado = false;
-const password = "071421";
+const password = "1";
 const monthNames = [
   "Janeiro",
   "Fevereiro",
@@ -27,151 +138,88 @@ var ls_keys, botaoConfirmar, botaoConfirmarOff;
 var listaVotoNome, listaVotoNumero, listaVotoVotos;
 
 function carregaDados() {
-  console.log("Função carregaDados chamada.");
-  var elementoPai = document.getElementById("tabela_corpo");
-
-  elementoPai.innerHTML = "";
-
-  console.log("Dados em listaVoto:", listaVoto);
-
-  if (listaVoto.length === 0) {
-    console.log("Lista de votos está vazia!");
-  }
-
-  let totalVotosPais = 0;
-  let totalVotosAlunos = 0;
-  let totalVotosProfessores = 0;
-  let totalVotosFuncionarios = 0;
-
-  for (var j = 0; j < listaVoto.length; j++) {
-    if (listaVoto[j].numero !== "nulo" && listaVoto[j].numero !== "BR") {
-      totalVotosPais += listaVoto[j].tipos.parents || 0;
-      totalVotosAlunos += listaVoto[j].tipos.student || 0;
-      totalVotosProfessores += listaVoto[j].tipos.teacher || 0;
-      totalVotosFuncionarios += listaVoto[j].tipos.employee || 0;
-    }
-  }
-
-  for (var i = 0; i < listaVoto.length; i++) {
-    var chapa = listaVoto[i];
-    var votosPais = (chapa.tipos && chapa.tipos.parents) || 0;
-    var votosAlunos = (chapa.tipos && chapa.tipos.student) || 0;
-    var votosProfessores = (chapa.tipos && chapa.tipos.teacher) || 0;
-    var votosFuncionarios = (chapa.tipos && chapa.tipos.employee) || 0;
-
-    if (
-      chapa.numero === "03" ||
-      chapa.numero === "04" ||
-      chapa.numero === "05"
-    ) {
-      continue;
-    }
-
-    var votosTotais = 0;
-    var voteSumTotal = 0;
-    if (chapa.numero === "nulo" || chapa.numero === "BR") {
-      votosTotais = 0;
-    } else if (totalVotosPais + totalVotosAlunos === 0) {
-      votosTotais =
-        ((votosProfessores + votosFuncionarios) * 100) /
-        (totalVotosProfessores + totalVotosFuncionarios);
-    } else if (totalVotosProfessores + totalVotosFuncionarios === 0) {
-      votosTotais =
-        ((votosPais + votosAlunos) * 100) / (totalVotosPais + totalVotosAlunos);
-    } else {
-      var parte1 =
-        ((votosPais + votosAlunos) * 50) / (totalVotosPais + totalVotosAlunos);
-      var parte2 =
-        ((votosProfessores + votosFuncionarios) * 50) /
-        (totalVotosProfessores + totalVotosFuncionarios);
-      votosTotais = parte1 + parte2;
-    }
-
-    if (!votosTotais) {
-      votosTotais = 0;
-    }
-    voteSumTotal =
-      votosPais + votosAlunos + votosProfessores + votosFuncionarios;
-
-    var tr = document.createElement("tr");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var td4 = document.createElement("td");
-    var td5 = document.createElement("td");
-    var td6 = document.createElement("td");
-    var td7 = document.createElement("td");
-    var td8 = document.createElement("td");
-
-    td1.textContent = chapa.nome;
-    td2.textContent = chapa.numero;
-    td3.textContent = votosPais;
-    td4.textContent = votosAlunos;
-    td5.textContent = votosProfessores;
-    td6.textContent = votosFuncionarios;
-    td8.textContent = voteSumTotal;
-    td7.textContent = votosTotais.toFixed(1) + "%";
-
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-    tr.appendChild(td4);
-    tr.appendChild(td5);
-    tr.appendChild(td6);
-    tr.appendChild(td8);
-    tr.appendChild(td7);
-
-    elementoPai.appendChild(tr);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  var selectElement = document.getElementById("type-vote");
-  var botaoConfirmar = document.getElementById("botaoConfirmar");
-
-  var previousValue = selectElement.value;
-
-  window.getSelectedValue = function () {
-    var selectedValue = selectElement.value;
-    return selectedValue;
-  };
-
-  selectElement.addEventListener("change", function () {
-    var selectedValue = selectElement.value;
-
-    if (promptSenha()) {
-      previousValue = selectedValue;
-      getSelectedValue();
-    } else {
-      selectElement.value = previousValue;
-    }
-  });
-});
-
-function verifyVote() {
-  passwordRight = false;
-
-  while (!passwordRight) {
-    let userPassword = prompt("Digite a senha para trocar o tipo de voto:");
-    if (userPassword === password) {
-      passwordRight = true;
-    } else {
-      alert("Senha incorreta. Não é possível alterar o tipo de voto.");
-    }
-  }
-}
-
-function confirma() {
-  var tipoVotoSelecionado = getSelectedValue();
-  if (!tipoVotoSelecionado) {
-    alert("Por favor, selecione um tipo de voto antes de confirmar.");
+  if (!listaVoto || listaVoto.length === 0) {
+    console.log("Nenhum candidato encontrado.");
     return;
   }
 
+  const resultado = {
+    "01": { nome: "Chapa 1", total: 0 },
+    "02": { nome: "Chapa 2", total: 0 },
+    "03": { nome: "Chapa 3", total: 0 },
+    "04": { nome: "Chapa 4", total: 0 },
+    "05": { nome: "Chapa 5", total: 0 },
+    BR: { nome: "Branco", total: 0 },
+    nulo: { nome: "Nulo", total: 0 },
+  };
+
+  // atualiza o total de votos da chapa correspondente
+  listaVoto.forEach((item) => {
+    if (item.votos !== undefined) {
+      // Se a chave existir em resultado, atualiza o total; se não, acumula em "nulo"
+      if (resultado[item.numero] !== undefined) {
+        resultado[item.numero].total = item.votos;
+      } else {
+        resultado["nulo"].total += item.votos;
+      }
+    }
+  });
+
+  const corpo = document.getElementById("tabela_corpo");
+  corpo.innerHTML = "";
+
+  let maisVotado = "";
+  let maxVotos = 0;
+
+  // Determina qual chapa tem o maior número de votos
+  Object.entries(resultado).forEach(([num, info]) => {
+    if (info.total > maxVotos) {
+      maxVotos = info.total;
+      maisVotado = num;
+    }
+  });
+
+  // Calcula o total geral de votos para o percentual
+  const totalGeral = listaVoto.reduce((acc, cur) => acc + (cur.votos || 0), 0);
+
+  // Cria a tabela exibindo os resultados
+  Object.entries(resultado).forEach(([num, info]) => {
+    const row = `
+  <tr ${
+    num === maisVotado && maxVotos > 0
+      ? 'style="background-color: #d3ffd3; font-weight: bold;"'
+      : ""
+  }>
+    <td>${info.nome}</td>
+    <td>${num}</td>
+    <td>${info.total}</td>
+    <td>${
+      totalGeral > 0 ? ((info.total / totalGeral) * 100).toFixed(2) + "%" : "0%"
+    }</td>
+  </tr>
+  `;
+    corpo.innerHTML += row;
+  });
+}
+
+function getSelectedValue() {
+  // Retorna sempre "student" como tipo de voto
+  return "student";
+}
+
+function confirma() {
+  // Usa o tipo fixo "student", ignorando o valor do select
+  let tipoVoto = "student";
   if (numero != "") {
-    let tipoVoto = getSelectedValue();
     console.log(`Voto Tentado: Tipo de voto - ${tipoVoto}, Número - ${numero}`);
-    if (numero != "01" && numero != "02" && numero != "BR") {
+    if (
+      numero != "01" &&
+      numero != "02" &&
+      numero != "03" &&
+      numero != "04" &&
+      numero != "05" &&
+      numero != "BR"
+    ) {
       numero = "nulo";
     }
     botaoConfirmar = document.getElementById("buttonON");
@@ -283,7 +331,14 @@ function botao(clicked_id) {
 }
 
 function showHide(my_id) {
-  if (my_id != "01" && my_id != "02" && my_id != "BR") {
+  if (
+    my_id != "01" &&
+    my_id != "02" &&
+    my_id != "03" &&
+    my_id != "04" &&
+    my_id != "05" &&
+    my_id != "BR"
+  ) {
     my_id = "nulo";
   }
   troca_img = document.getElementById(my_id);
@@ -331,7 +386,7 @@ function cadastrarCandidato() {
 function preenche_lista() {
   console.log("Função preenche_lista chamada.");
   ls_keys = Object.keys(localStorage);
-  listaVoto = []; // Reseta a listaVoto para evitar duplicações
+  listaVoto = [];
 
   for (var i in ls_keys) {
     var item = JSON.parse(localStorage.getItem(ls_keys[i]));
@@ -347,10 +402,7 @@ function preenche_lista() {
       };
     }
 
-    // Remover chapas 3, 4 e 5
-    if (item.numero !== "03" && item.numero !== "04" && item.numero !== "05") {
-      listaVoto.push(item);
-    }
+    listaVoto.push(item);
   }
 
   console.log("Dados após organizar listaVoto:", listaVoto);
@@ -369,10 +421,9 @@ function convertePDF(x) {
   if (!x) {
     pdf.text(130, 70, "PREFEITURA MUNICIPAL DE PARNAMIRIM/RN");
     pdf.text(150, 90, "SECRETARIA MUNICIPAL DE EDUCAÇÃO");
-    pdf.text(50, 110, "COORDENADORIA DE DESENVOLVIMENTO DA GESTÃO ESCOLAR");
     pdf.text(135, 130, "SETOR DE TECNOLOGIA EDUCACIONAL/GTI");
-    pdf.text(150, 220, "Resultado da Eleição: Gestores Escolares");
-    pdf.text(230, 240, "(triênio 2025-2027).");
+    pdf.text(50, 110, "ESCOLA MUNICIPAL MARIA FERNANDES SARAIVA");
+    pdf.text(150, 220, "Resultado da Eleição do grêmio estudantil");
     pdf.text(
       200,
       460,
@@ -387,10 +438,9 @@ function convertePDF(x) {
   if (x) {
     pdf.text(130, 70, "PREFEITURA MUNICIPAL DE PARNAMIRIM/RN");
     pdf.text(150, 90, "SECRETARIA MUNICIPAL DE EDUCAÇÃO");
-    pdf.text(50, 110, "COORDENADORIA DE DESENVOLVIMENTO DA GESTÃO ESCOLAR");
     pdf.text(135, 130, "SETOR DE TECNOLOGIA EDUCACIONAL/GTI");
-    pdf.text(150, 220, "Resultado da Eleição: Gestores Escolares");
-    pdf.text(230, 240, "(triênio 2025-2027).");
+    pdf.text(50, 110, "ESCOLA MUNICIPAL MARIA FERNANDES SARAIVA");
+    pdf.text(150, 220, "Resultado da Eleição do grêmio estudantil");
     pdf.text(
       200,
       460,
@@ -468,4 +518,8 @@ function blockButton() {
     buttonsContainer.style.gap = "0px";
     buttonContinue.style.display = "none";
   }
+}
+
+function getSelectedValue() {
+  return "student";
 }

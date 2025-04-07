@@ -39,8 +39,18 @@
       </div>
     </div>
     <footer>
-      <div class="developer">Desenvolvido pela GTI - 2024</div>
+      <div class="developer">
+        Desenvolvido pela GTI - <span id="year"></span>
+      </div>
     </footer>
+
+    <script>
+      let year = document.getElementById("year");
+      let getDate = new Date();
+      let atualYear = getDate.getFullYear();
+
+      year.innerText = atualYear;
+    </script>
 
     <script src="scripts/main.js"></script>
     <script src="scripts/jquery.min.js"></script>
