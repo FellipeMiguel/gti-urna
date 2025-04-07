@@ -416,51 +416,30 @@ function atualizarLocalStorage() {
   }
 }
 
-function convertePDF(x) {
-  let pdf = new jsPDF("p", "pt", "letter");
-  if (!x) {
-    pdf.text(130, 70, "PREFEITURA MUNICIPAL DE PARNAMIRIM/RN");
-    pdf.text(150, 90, "SECRETARIA MUNICIPAL DE EDUCAÇÃO");
-    pdf.text(135, 130, "SETOR DE TECNOLOGIA EDUCACIONAL/GTI");
-    pdf.text(50, 110, "ESCOLA MUNICIPAL MARIA FERNANDES SARAIVA");
-    pdf.text(150, 220, "Resultado da Eleição do grêmio estudantil");
-    pdf.text(
-      200,
-      460,
-      "Parnamirim/RN, " + getTempo() + " - " + getHora() + " "
-    );
+function convertePDF() {
+  const pdf = new jsPDF("p", "pt", "letter");
 
-    pdf.text(150, 620, "________________________________");
-    pdf.text(220, 650, "NOME DA ESCOLA");
-    pdf.text(150, 720, "________________________________");
-    pdf.text(162, 750, "COMISSÃO ELEITORAL ESCOLAR");
-  }
-  if (x) {
-    pdf.text(130, 70, "PREFEITURA MUNICIPAL DE PARNAMIRIM/RN");
-    pdf.text(150, 90, "SECRETARIA MUNICIPAL DE EDUCAÇÃO");
-    pdf.text(135, 130, "SETOR DE TECNOLOGIA EDUCACIONAL/GTI");
-    pdf.text(50, 110, "ESCOLA MUNICIPAL MARIA FERNANDES SARAIVA");
-    pdf.text(150, 220, "Resultado da Eleição do grêmio estudantil");
-    pdf.text(
-      200,
-      460,
-      "Parnamirim/RN, " + getTempo() + " - " + getHora() + " "
-    );
-    pdf.text(150, 620, "________________________________");
-    pdf.text(220, 650, "NOME DA ESCOLA");
-    pdf.text(150, 720, "________________________________");
-    pdf.text(162, 750, "COMISSÃO ELEITORAL ESCOLAR");
-  }
+  pdf.text(126, 70, "PREFEITURA MUNICIPAL DE PARNAMIRIM/RN");
+  pdf.text(147, 90, "SECRETARIA MUNICIPAL DE EDUCAÇÃO");
+  pdf.text(133, 110, "SETOR DE TECNOLOGIA EDUCACIONAL/GTI");
+  pdf.text(110, 130, "ESCOLA MUNICIPAL MARIA FERNANDES SARAIVA");
+  pdf.text(160, 220, "Resultado da Eleição do grêmio estudantil");
+  pdf.text(215, 425, "Parnamirim/RN, " + getTempo() + " - " + getHora());
 
-  let source = document.getElementById("div_tabela");
+  pdf.text(160, 620, "________________________________");
+  pdf.text(210, 650, "GESTOR PEDAGÓGICO");
+  pdf.text(160, 720, "________________________________");
+  pdf.text(200, 750, "GESTOR ADMINISTRATIVO");
 
-  let specialElementHandlers = {
+  const source = document.getElementById("div_tabela");
+
+  const specialElementHandlers = {
     "#bypassme": function (element, renderer) {
       return true;
     },
   };
 
-  let margins = {
+  const margins = {
     top: 250,
     bottom: 30,
     left: 78,
@@ -468,18 +447,19 @@ function convertePDF(x) {
   };
 
   pdf.fromHTML(
-    source, // HTML string or DOM elem ref.
-    margins.left, // x coord
+    source,
+    margins.left,
     margins.top,
     {
-      width: margins.width, // max width of content on PDF
+      width: margins.width,
       elementHandlers: specialElementHandlers,
     },
-    function (dispose) {
+    function () {
       pdf.save("Resultados.pdf");
     },
     margins
   );
+
   alert("Sua votação foi baixada!");
 }
 
