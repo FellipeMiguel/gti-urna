@@ -118,7 +118,7 @@ let numero = "",
 let listaVoto = [];
 var hora, minuto, segundo;
 var iniciado = false;
-const password = "1";
+const password = "132639";
 const monthNames = [
   "Janeiro",
   "Fevereiro",
