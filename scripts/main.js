@@ -146,9 +146,6 @@ function carregaDados() {
   const resultado = {
     "01": { nome: "Chapa 1", total: 0 },
     "02": { nome: "Chapa 2", total: 0 },
-    "03": { nome: "Chapa 3", total: 0 },
-    "04": { nome: "Chapa 4", total: 0 },
-    "05": { nome: "Chapa 5", total: 0 },
     BR: { nome: "Branco", total: 0 },
     nulo: { nome: "Nulo", total: 0 },
   };
@@ -212,14 +209,7 @@ function confirma() {
   let tipoVoto = "student";
   if (numero != "") {
     console.log(`Voto Tentado: Tipo de voto - ${tipoVoto}, Número - ${numero}`);
-    if (
-      numero != "01" &&
-      numero != "02" &&
-      numero != "03" &&
-      numero != "04" &&
-      numero != "05" &&
-      numero != "BR"
-    ) {
+    if (numero != "01" && numero != "02" && numero != "BR") {
       numero = "nulo";
     }
     botaoConfirmar = document.getElementById("buttonON");
@@ -274,16 +264,8 @@ function iniciar() {
 }
 
 function zeresima() {
-  nome = [
-    "Nulo",
-    "Branco",
-    "Chapa 1",
-    "Chapa 2",
-    "Chapa 3",
-    "Chapa 4",
-    "Chapa 5",
-  ];
-  numero = ["nulo", "BR", "01", "02", "03", "04", "05"];
+  nome = ["Nulo", "Branco", "Chapa 1", "Chapa 2"];
+  numero = ["nulo", "BR", "01", "02"];
   for (i = 0; i < nome.length; i++) {
     localStorage.setItem(
       nome[i],
@@ -331,16 +313,10 @@ function botao(clicked_id) {
 }
 
 function showHide(my_id) {
-  if (
-    my_id != "01" &&
-    my_id != "02" &&
-    my_id != "03" &&
-    my_id != "04" &&
-    my_id != "05" &&
-    my_id != "BR"
-  ) {
+  if (my_id != "01" && my_id != "02" && my_id != "BR") {
     my_id = "nulo";
   }
+
   troca_img = document.getElementById(my_id);
   sem_nada = document.getElementById("nada");
   if (troca_img.style.display == "block") {
@@ -364,16 +340,9 @@ function end() {
 }
 
 function cadastrarCandidato() {
-  nome = [
-    "Nulo",
-    "Branco",
-    "Chapa 1",
-    "Chapa 2",
-    "Chapa 3",
-    "Chapa 4",
-    "Chapa 5",
-  ];
-  numero = ["nulo", "BR", "01", "02", "03", "04", "05"];
+  nome = ["Nulo", "Branco", "Chapa 1", "Chapa 2"];
+  numero = ["nulo", "BR", "01", "02"];
+
   for (i = 0; i < nome.length; i++) {
     localStorage.setItem(
       nome[i],
